@@ -14,17 +14,33 @@
     <div class="logo">Tic Tac Toe</div>
   </header>
 
-  <div class="game-display">
-    <div class="player-container">
-      <div class="player-card">
-        <div class="name">Player 1</div>
-        <div class="symbol">X</div>
+  <div id="pre-game-display">
+    <form action="" id="form">
+      <div class="wrapper">
+        <label for="player-one">Player 1 Name</label>
+        <input type="text" name="player-one" id="player-one" required>
       </div>
-      <div class="player-card">
-        <div class="name">Player 2</div>
-        <div class="symbol">O</div>
-      </div>
-    </div>
+      <fieldset>
+        <legend>Versus</legend>
+        <div class="choices">
+          <input type="radio" name="player-two" id="ai" value="ai" checked required onclick="displayController.togglePlayerTwo()">
+          <label for="ai">Computer</label>
+          <input type="radio" name="player-two" id="player" value="player" onclick="displayController.togglePlayerTwo()">
+          <label for="player">Player</label>
+        </div>
+        <div id="player-two-optional" style="display: none;">
+          <div class="wrapper">
+            <label for="player-two-name">Player 2 Name</label>
+            <input type="text" name="player-two-name" id="player-two-name">
+          </div>
+        </div>
+      </fieldset>
+      <button type="submit">Start Game</button>
+    </form>
+  </div>
+
+  <div id="game-display">
+    <div class="player-container"></div>
   
     <div class="board-container">
       <div class="row">

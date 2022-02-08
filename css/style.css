@@ -17,10 +17,25 @@ header {
   padding: 0.2em 0 0.5em 0;
 }
 
-.game-display {
+#pre-game-display {
   display: flex;
   flex-direction: column;
   flex: 1;
+}
+
+#game-display {
+  display: none;
+  flex-direction: column;
+  flex: 1;
+}
+
+fieldset {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  text-align: start;
 }
 
 .player-container {
