@@ -13,19 +13,21 @@ const gameBoard = ((doc) => {
     ['', '', ''],
     ['', '', '']
   ];
-  const display = () => {
-    const rows = doc.querySelectorAll('.row');
-    rows.forEach((row, i) => {
-      _board[i].forEach(choice => {
-        let square = doc.createElement('div');
-        square.classList.add('square');
-        square.textContent = choice;
-        row.appendChild(square);
-      });
-    });
+  const _updateBoard = (e) => {
+    const choice = e.target;
+    const i = choice.getAttribute('i');
+    const j = choice.getAttribute('j');
+    _board[i][j] = 'x';
+    choice.textContent = 'x'
   };
+  const _init = (() => {
+    const squares = doc.querySelectorAll('.square');
+    squares.forEach(square => {
+      square.addEventListener('click', _updateBoard)
+    });
+  })();
   return {
-    display
+    
   };
 })(document);
 
@@ -35,4 +37,4 @@ const displayController = (() => {
   };
 })();
 
-gameBoard.display();
+// gameBoard.makeDisplay();

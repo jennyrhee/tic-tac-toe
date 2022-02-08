@@ -17,10 +17,17 @@ header {
   padding: 0.2em 0 0.5em 0;
 }
 
-.board-container {
+.game-display {
   display: flex;
   flex-direction: column;
   flex: 1;
+}
+
+.player-container {
+  display: flex;
+  justify-content: space-around;
+  gap: 1em;
+  margin-bottom: 1em;
 }
 
 .row {
@@ -36,6 +43,7 @@ header {
   font-size: max(50px, 7vw);
   text-transform: uppercase;
   border-style: groove;
+  cursor: pointer;
 }
 
 a {
