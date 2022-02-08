@@ -9,9 +9,9 @@ const Player = (name, symbol) => {
 
 const gameBoard = ((doc) => {
   let _board = [
-    ['x', 'o', 'x'],
-    ['x', 'x', 'o'],
-    ['o', 'o', 'x']
+    ['', '', ''],
+    ['', '', ''],
+    ['', '', '']
   ];
   const display = () => {
     const rows = doc.querySelectorAll('.row');

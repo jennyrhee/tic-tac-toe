@@ -2,18 +2,43 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  text-align: center;
 }
 
 body {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+header {
+  font-size: max(40px, 4vw);
+  padding: 0.2em 0 0.5em 0;
 }
 
 .board-container {
   display: flex;
   flex-direction: column;
+  flex: 1;
 }
 
 .row {
   display: flex;
+}
+
+.square {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(20vh, 1.5em);
+  height: min(20vw, 1.5em);
+  font-size: max(50px, 7vw);
+  text-transform: uppercase;
+  border-style: groove;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
