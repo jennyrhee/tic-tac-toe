@@ -32,6 +32,18 @@ const gameBoard = ((doc) => {
 })(document);
 
 const displayController = ((doc) => {
+  const togglePlayerTwo = () => {
+    const optionalInput = doc.getElementById('player-two-optional');
+    const name = doc.getElementById('player-two-name');
+    if (doc.getElementById('player').checked) {
+      optionalInput.style.display = 'block';
+      name.required = true;
+    } else {
+      optionalInput.style.display = 'none';
+      name.required = false;
+    }
+  };
+
   const _createPlayers = (form) => {
     const playerOne = Player(form.elements['player-one'].value, 'X');
     const playerTwo = form.elements['ai'].checked ?
@@ -65,17 +77,6 @@ const displayController = ((doc) => {
       _displayPlayer(playerTwo);
     })
   })();
-  const togglePlayerTwo = () => {
-    const optionalInput = doc.getElementById('player-two-optional');
-    const name = doc.getElementById('player-two-name');
-    if (doc.getElementById('player').checked) {
-      optionalInput.style.display = 'block';
-      name.required = true;
-    } else {
-      optionalInput.style.display = 'none';
-      name.required = false;
-    }
-  };
   return {
     togglePlayerTwo
   };
