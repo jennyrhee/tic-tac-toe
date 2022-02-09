@@ -1,37 +1,33 @@
 const Player = (name='Computer', symbol='O') => {
   const getName = () => name;
   const getSymbol = () => symbol;
+
   return {
     getName,
     getSymbol
   };
 }
 
-const gameBoard = ((doc) => {
+const board = (() => {
   let _board = [
     ['', '', ''],
     ['', '', ''],
     ['', '', '']
   ];
-  const _updateBoard = (e) => {
-    const choice = e.target;
-    const i = choice.getAttribute('i');
-    const j = choice.getAttribute('j');
-    _board[i][j] = 'x';
-    choice.textContent = 'x'
-  };
-  const _init = (() => {
-    const squares = doc.querySelectorAll('.square');
-    squares.forEach(square => {
-      square.addEventListener('click', _updateBoard)
-    });
-  })();
-  return {
-    
-  };
-})(document);
+  
+  const setChoice = (i, j, symbol) => {
+    _board[i][j] = symbol;
+  }
 
-const displayController = ((doc) => {
+  return {
+    setChoice
+  };
+})();
+
+const game = ((doc) => {
+  let _players = [];
+  let _turn = null;
+
   const togglePlayerTwo = () => {
     const optionalInput = doc.getElementById('player-two-optional');
     const name = doc.getElementById('player-two-name');
@@ -42,14 +38,6 @@ const displayController = ((doc) => {
       optionalInput.style.display = 'none';
       name.required = false;
     }
-  };
-
-  const _createPlayers = (form) => {
-    const playerOne = Player(form.elements['player-one'].value, 'X');
-    const playerTwo = form.elements['ai'].checked ?
-      Player() : 
-      Player(form.elements['player-two-name'].value, 'O');
-    return [playerOne, playerTwo]
   };
   const _addDiv = (card, fn) => {
     let div = doc.createElement('div');
@@ -64,7 +52,35 @@ const displayController = ((doc) => {
     _addDiv(card, player.getSymbol);
     container.appendChild(card);
   };
-  const _init = (() => {
+  const _createPlayers = (form) => {
+    _players.push(Player(form.elements['player-one'].value, 'X'));
+    _turn = _players[0];
+    _players.push(form.elements['ai'].checked ?
+      Player() : 
+      Player(form.elements['player-two-name'].value, 'O')
+    );
+    _players.forEach(player => _displayPlayer(player));
+  };
+  const _updateBoard = (e, symbol) => {
+    const choice = e.target;
+    const i = choice.getAttribute('i');
+    const j = choice.getAttribute('j');
+    board.setChoice(i, j, symbol);
+    choice.textContent = symbol;
+  };
+  const _changeTurn = () => {
+    _turn = _turn === _players[0] ? _players[1] : _players[0];
+  };
+  const _initializeBoard = () => {
+    const squares = doc.querySelectorAll('.square');
+    squares.forEach(square => {
+      square.addEventListener('click', (e) => {
+        _updateBoard(e, _turn.getSymbol())
+        _changeTurn();
+      });
+    });
+  }
+  (() => {
     const form = doc.getElementById('form');
     form.addEventListener('submit', e => {
       e.preventDefault();
@@ -72,11 +88,11 @@ const displayController = ((doc) => {
       doc.getElementById('pre-game-display').style.display = 'none';
       doc.getElementById('game-display').style.display = 'flex';
       
-      const [playerOne, playerTwo] = _createPlayers(form)
-      _displayPlayer(playerOne);
-      _displayPlayer(playerTwo);
+      _createPlayers(form);
+      _initializeBoard();
     })
   })();
+
   return {
     togglePlayerTwo
   };
