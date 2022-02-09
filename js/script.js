@@ -14,15 +14,63 @@ const board = (() => {
     ['', '', ''],
     ['', '', '']
   ];
+  let _winner = false;
   
   const setChoice = (i, j, symbol) => {
     _board[i][j] = symbol;
   };
   const getChoice = (i, j) => _board[i][j];
+  const _checkRow = () => {
+    for (let i = 0; i < _board.length; i++) {
+      let row = _board[i];
+      let symbol = row[0] === '' ? null : row[0];
+      let match = row.every(square => symbol === square);
+      if (match) _winner = symbol;
+    };
+  };
+  const _checkCol = () => {
+    for (let j = 0; j < _board.length; j++) {
+      let symbol = _board[0][j] === '' ? null : _board[0][j];
+      let matches = 0;
+      for (let i = 0; i < _board.length; i++) {
+        if (symbol === _board[i][j]) matches++
+      };
+      if (matches === 3) _winner = symbol;
+    };
+  };
+  const _checkDiagonal = () => {
+    const diags = [
+      [_board[0][0], _board[1][1], _board[2][2]],
+      [_board[0][2], _board[1][1], _board[2][0]]
+    ];
+    for (let i = 0; i < diags.length; i++) {
+      let match = diags[i].every(val =>
+        val === (diags[i][0] === '' ? null : diags[i][0])
+      );
+      if (match) _winner = diags[i][0];
+    }
+  };
+  const _isFull = () => {
+    for (let i = 0; i < _board.length; i++) {
+      for (let j = 0; j < _board[i].length; j++) {
+        if (_board[i][j] === '') return false;
+      }
+    }
+    return true;
+  };
+  const determineGameOver = () => {
+    _checkRow();
+    _checkCol();
+    _checkDiagonal();
+    return _winner || _isFull();
+  };
+  const getWinner = () => _winner;
 
   return {
     setChoice,
-    getChoice
+    getChoice,
+    determineGameOver,
+    getWinner
   };
 })();
 
@@ -79,7 +127,12 @@ const game = ((doc) => {
   const _initializeBoard = () => {
     const squares = doc.querySelectorAll('.square');
     squares.forEach(square => {
-      square.addEventListener('click', (e) => _updateBoard(e, _turn.getSymbol()));
+      square.addEventListener('click', (e) => {
+        _updateBoard(e, _turn.getSymbol());
+        if (board.determineGameOver()) {
+          console.log(board.getWinner())
+        };
+      });
     });
   };
   (() => {
