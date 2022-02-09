@@ -17,10 +17,12 @@ const board = (() => {
   
   const setChoice = (i, j, symbol) => {
     _board[i][j] = symbol;
-  }
+  };
+  const getChoice = (i, j) => _board[i][j];
 
   return {
-    setChoice
+    setChoice,
+    getChoice
   };
 })();
 
@@ -61,25 +63,25 @@ const game = ((doc) => {
     );
     _players.forEach(player => _displayPlayer(player));
   };
+  const _changeTurn = () => {
+    _turn = _turn === _players[0] ? _players[1] : _players[0];
+  };
   const _updateBoard = (e, symbol) => {
     const choice = e.target;
     const i = choice.getAttribute('i');
     const j = choice.getAttribute('j');
-    board.setChoice(i, j, symbol);
-    choice.textContent = symbol;
-  };
-  const _changeTurn = () => {
-    _turn = _turn === _players[0] ? _players[1] : _players[0];
+    if (board.getChoice(i, j) === '') {
+      board.setChoice(i, j, symbol);
+      choice.textContent = symbol;
+      _changeTurn();
+    }
   };
   const _initializeBoard = () => {
     const squares = doc.querySelectorAll('.square');
     squares.forEach(square => {
-      square.addEventListener('click', (e) => {
-        _updateBoard(e, _turn.getSymbol())
-        _changeTurn();
-      });
+      square.addEventListener('click', (e) => _updateBoard(e, _turn.getSymbol()));
     });
-  }
+  };
   (() => {
     const form = doc.getElementById('form');
     form.addEventListener('submit', e => {
