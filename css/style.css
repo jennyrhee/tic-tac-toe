@@ -45,6 +45,10 @@ input {
   margin-bottom: 1em;
 }
 
+.disabled {
+  pointer-events: none;
+}
+
 .row {
   display: flex;
 }

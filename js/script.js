@@ -65,12 +65,21 @@ const board = (() => {
     return _winner || _isFull();
   };
   const getWinner = () => _winner;
+  const reset = () => {
+    _board = [
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', '']
+    ];
+    _winner = false;
+  };
 
   return {
     setChoice,
     getChoice,
     determineGameOver,
-    getWinner
+    getWinner,
+    reset
   };
 })();
 
@@ -124,13 +133,44 @@ const game = ((doc) => {
       _changeTurn();
     }
   };
+  const _showWinner = () => {
+    const winName = board.getWinner() === _players[0].getSymbol() ?
+      _players[0].getName() :
+      _players[1].getName();
+    const div = doc.createElement('div');
+    div.classList.add('win-message');
+    div.textContent = `${winName} wins the game!`;
+    return div;
+  };
+  const _toggleBoard = () => {
+    doc.querySelector('.board-container').classList.toggle('disabled');
+  };
+  const _reset = () => {
+    board.reset();
+    _turn = _players[0];
+    const squares = doc.querySelectorAll('.square');
+    squares.forEach(square => {
+      square.textContent = '';
+    });
+    _toggleBoard();
+    doc.querySelector('.end-container').textContent = '';
+  }
+  const _createResetBtn = () => {
+    const resetBtn = doc.createElement('button');
+    resetBtn.textContent = 'Play Again';
+    resetBtn.onclick = _reset;
+    return resetBtn;
+  };
   const _initializeBoard = () => {
     const squares = doc.querySelectorAll('.square');
     squares.forEach(square => {
       square.addEventListener('click', (e) => {
         _updateBoard(e, _turn.getSymbol());
         if (board.determineGameOver()) {
-          console.log(board.getWinner())
+          _toggleBoard();
+          const container = doc.querySelector('.end-container');
+          container.appendChild(_showWinner());
+          container.appendChild(_createResetBtn());
         };
       });
     });
