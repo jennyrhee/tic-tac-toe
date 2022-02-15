@@ -22,6 +22,16 @@ const board = (() => {
     _board[i][j] = symbol;
   };
   const getChoice = (i, j) => _board[i][j];
+  const selectRandom = (symbol) => {
+    let choice, i, j;
+    while (choice !== '') {
+      i = Math.floor(Math.random() * 3);
+      j = Math.floor(Math.random() * 3);
+      choice = getChoice(i, j);
+    }
+    setChoice(i, j, symbol);
+    return [i, j];
+  };
   const _checkRow = () => {
     for (let i = 0; i < _board.length; i++) {
       let row = _board[i];
@@ -79,6 +89,7 @@ const board = (() => {
   return {
     setChoice,
     getChoice,
+    selectRandom,
     determineGameOver,
     getWinner,
     reset
@@ -173,6 +184,12 @@ const game = ((doc) => {
           const container = doc.querySelector('.end-container');
           container.appendChild(_showWinner());
           container.appendChild(_createResetBtn());
+        };
+        if (_players[1].getIsComputer() && board.getWinner() === false) {
+          let [i, j] = board.selectRandom(_players[1].getSymbol());
+          const choice = doc.querySelector(`[i="${i}"][j="${j}"]`);
+          choice.textContent = _players[1].getSymbol();
+          _changeTurn();
         };
       });
     });
