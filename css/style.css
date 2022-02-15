@@ -135,6 +135,10 @@ input {
   padding: 5px;
 }
 
+.blur {
+  filter: blur(4px);
+}
+
 a {
   text-decoration: none;
   color: inherit;

@@ -165,6 +165,7 @@ const game = ((doc) => {
     squares.forEach(square => {
       square.textContent = '';
     });
+    doc.querySelector('.board-container').classList.toggle('blur');
     _toggleBoard();
     doc.querySelector('.end-container').textContent = '';
     doc.querySelector('.end-container').style.display = 'none';
@@ -192,12 +193,7 @@ const game = ((doc) => {
           container.style.display = 'block';
           container.appendChild(_showWinner());
           container.appendChild(_createResetBtn());
-        };
-        if (_players[1].getIsComputer() && board.getWinner() === false) {
-          let [i, j] = board.selectRandom(_players[1].getSymbol());
-          const choice = doc.querySelector(`[i="${i}"][j="${j}"]`);
-          choice.textContent = _players[1].getSymbol();
-          _changeTurn();
+          doc.querySelector('.board-container').classList.toggle('blur');
         };
       });
     });
