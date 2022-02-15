@@ -1,10 +1,12 @@
-const Player = (name='Computer', symbol='O') => {
+const Player = (name='Computer', symbol='O', isComputer=true) => {
   const getName = () => name;
   const getSymbol = () => symbol;
+  const getIsComputer = () => isComputer;
 
   return {
     getName,
-    getSymbol
+    getSymbol,
+    getIsComputer
   };
 }
 
@@ -112,11 +114,11 @@ const game = ((doc) => {
     container.appendChild(card);
   };
   const _createPlayers = (form) => {
-    _players.push(Player(form.elements['player-one'].value, 'X'));
+    _players.push(Player(form.elements['player-one'].value, 'X', false));
     _turn = _players[0];
     _players.push(form.elements['ai'].checked ?
       Player() : 
-      Player(form.elements['player-two-name'].value, 'O')
+      Player(form.elements['player-two-name'].value, 'O', false)
     );
     _players.forEach(player => _displayPlayer(player));
   };
