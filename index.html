@@ -17,11 +17,11 @@
   <div id="pre-game-display">
     <form action="" id="form">
       <div class="wrapper">
-        <label for="player-one">Player 1 Name</label>
+        <label for="player-one">Player 1 Name:</label>
         <input type="text" name="player-one" id="player-one" required>
       </div>
       <fieldset>
-        <legend>Versus</legend>
+        <legend>VS.</legend>
         <div class="choices">
           <input type="radio" name="player-two" id="ai" value="ai" checked required onclick="game.togglePlayerTwo()">
           <label for="ai">Computer</label>
@@ -30,12 +30,12 @@
         </div>
         <div id="player-two-optional" style="display: none;">
           <div class="wrapper">
-            <label for="player-two-name">Player 2 Name</label>
+            <label for="player-two-name">Player 2 Name:</label>
             <input type="text" name="player-two-name" id="player-two-name">
           </div>
         </div>
       </fieldset>
-      <button type="submit">Start Game</button>
+      <button type="submit" id="start-game">Start Game</button>
     </form>
   </div>
 
@@ -62,7 +62,6 @@
 
     <div class="end-container"></div>
   </div>
-  
 
   <footer>
     <p>

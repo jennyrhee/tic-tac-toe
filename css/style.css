@@ -13,15 +13,24 @@ body {
   align-items: center;
   min-height: 100vh;
   font-family: 'Roboto', sans-serif;
+  background-color: #8da1b9;
 }
 
 button {
   font-family: 'Roboto', sans-serif;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+header,
+footer {
+  width: 100vw;
 }
 
 header {
   font-size: max(40px, 4vw);
-  padding: 0.2em 0 0.5em 0;
+  padding: 0.2em;
+  margin-bottom: 0.5em;
 }
 
 .logo {
@@ -30,25 +39,48 @@ header {
   letter-spacing: 5px;
 }
 
-#pre-game-display {
-  display: flex;
-  flex-direction: column;
+#pre-game-display,
+#game-display {
   flex: 1;
+}
+
+#pre-game-display {
+  
 }
 
 #game-display {
   display: none;
   flex-direction: column;
-  flex: 1;
+}
+
+#form {
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;  
+  border: groove;
+  border-radius: 0.5em;
+}
+
+#start-game {
+  width: 40%;
+  margin-top: 1em;
+  border-radius: 5px;
+  padding: 5px;
 }
 
 fieldset {
   display: flex;
   flex-direction: column;
+  border-radius: 8px;
+  padding: 0.3em;
 }
 
 input {
   text-align: start;
+  padding: 2px;
+  border-radius: 5px;
+  margin: 5px;
 }
 
 .player-container {
@@ -81,4 +113,8 @@ input {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+footer {
+  padding: 0.5em;
 }
