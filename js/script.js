@@ -167,6 +167,7 @@ const game = ((doc) => {
     });
     _toggleBoard();
     doc.querySelector('.end-container').textContent = '';
+    doc.querySelector('.end-container').style.display = 'none';
   }
   const _createResetBtn = () => {
     const resetBtn = doc.createElement('button');
@@ -182,6 +183,7 @@ const game = ((doc) => {
         if (board.determineGameOver()) {
           _toggleBoard();
           const container = doc.querySelector('.end-container');
+          container.style.display = 'block';
           container.appendChild(_showWinner());
           container.appendChild(_createResetBtn());
         };

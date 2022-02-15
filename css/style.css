@@ -106,8 +106,33 @@ input {
   height: min(20vw, 1.5em);
   font-size: max(50px, 7vw);
   text-transform: uppercase;
-  border-style: groove;
+  border-style: ridge;
   cursor: pointer;
+  font-family: 'Architects Daughter', cursive;
+  font-weight: bold;
+  background-color: #dbc7be;
+  color: #ef959c;
+}
+
+.end-container {
+  display: none;
+  position: absolute;
+  top: 22vw;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 200px;
+  background-color: #95adb6;
+  padding: 1em;
+  border-radius: 8px;
+  box-shadow: 3px 3px 5px slategray;
+}
+
+.end-container button {
+  margin-top: 1em;
+  border-radius: 5px;
+  padding: 5px;
 }
 
 a {
