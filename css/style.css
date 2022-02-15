@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Poppins&display=swap');
 
 * {
   margin: 0;
@@ -12,25 +12,27 @@ body {
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Poppins', sans-serif;
   background-color: #8da1b9;
 }
 
 button {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Poppins', sans-serif;
   cursor: pointer;
   text-transform: uppercase;
 }
 
 header,
 footer {
+  background-color: #899eb6;
   width: 100vw;
 }
 
 header {
   font-size: max(40px, 4vw);
-  padding: 0.2em;
   margin-bottom: 0.5em;
+  box-shadow: 0 1px 3px lightslategrey;
+  position: relative;
 }
 
 .logo {
@@ -42,10 +44,6 @@ header {
 #pre-game-display,
 #game-display {
   flex: 1;
-}
-
-#pre-game-display {
-  
 }
 
 #game-display {
@@ -145,5 +143,8 @@ a {
 }
 
 footer {
-  padding: 0.5em;
+  margin-top: 1em;
+  padding: 0.3em;
+  box-shadow: 1px 0 3px lightslategrey;
+  position: relative;
 }
