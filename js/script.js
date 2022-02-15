@@ -74,6 +74,9 @@ const board = (() => {
     _checkRow();
     _checkCol();
     _checkDiagonal();
+    if (!_winner && _isFull()) {
+      _winner = 'tie';
+    }
     return _winner || _isFull();
   };
   const getWinner = () => _winner;
@@ -147,12 +150,13 @@ const game = ((doc) => {
     }
   };
   const _showWinner = () => {
-    const winName = board.getWinner() === _players[0].getSymbol() ?
-      _players[0].getName() :
-      _players[1].getName();
+    const winName = board.getWinner() === 'tie' ? null : 
+      board.getWinner() === _players[0].getSymbol() ?
+        _players[0].getName() :
+        _players[1].getName();
     const div = doc.createElement('div');
-    div.classList.add('win-message');
-    div.textContent = `${winName} wins the game!`;
+    div.textContent = board.getWinner() === 'tie' ? 'Tie!' :
+      `${winName} wins the game!`;
     return div;
   };
   const _toggleBoard = () => {
@@ -181,7 +185,7 @@ const game = ((doc) => {
     squares.forEach(square => {
       square.addEventListener('click', (e) => {
         _updateBoard(e, _turn.getSymbol());
-        if (_players[1].getIsComputer() && board.determineGameOver() === false) {
+        if (_players[1].getIsComputer() && !board.determineGameOver()) {
           let [i, j] = board.selectRandom(_players[1].getSymbol());
           const choice = doc.querySelector(`[i="${i}"][j="${j}"]`);
           choice.textContent = _players[1].getSymbol();
