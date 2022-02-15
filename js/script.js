@@ -180,6 +180,12 @@ const game = ((doc) => {
     squares.forEach(square => {
       square.addEventListener('click', (e) => {
         _updateBoard(e, _turn.getSymbol());
+        if (_players[1].getIsComputer() && board.determineGameOver() === false) {
+          let [i, j] = board.selectRandom(_players[1].getSymbol());
+          const choice = doc.querySelector(`[i="${i}"][j="${j}"]`);
+          choice.textContent = _players[1].getSymbol();
+          _changeTurn();
+        };
         if (board.determineGameOver()) {
           _toggleBoard();
           const container = doc.querySelector('.end-container');
